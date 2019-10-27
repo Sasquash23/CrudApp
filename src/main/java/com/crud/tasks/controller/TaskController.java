@@ -12,11 +12,11 @@ import java.util.List;
 @RequestMapping("/v1/task")
 public class TaskController {
     @RequestMapping(method = RequestMethod.GET, value = "getTasks")
-    public List<TaskDto> getTask() {
+    public List<TaskDto> getTasks() {
         return new ArrayList<>();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getTasksV2")
+    @RequestMapping(method = RequestMethod.GET, value = "getTask")
     public TaskDto getTask(Long taskId) {
         return new TaskDto( 1L, "Ricky", "Morthy is being send on mission");
     }
