@@ -5,6 +5,7 @@ import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,9 +28,15 @@ public class TaskController {
         return taskMapper.mapToTaskDtoList(service.getAllTasks());
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getTask")
+    /*@RequestMapping(method = RequestMethod.GET, value = "getTask")
     public TaskDto getTask(Long taskId) {
         return new TaskDto( 1L, "Ricky", "Morthy is being send on mission");
+    }*/
+
+    // http://localhost:8080/v1/task/getTask?taskId=1
+    @RequestMapping(method = RequestMethod.GET, value = "getTaska")
+    public TaskDto getTaskById(@RequestParam(required = true) Long taskId) {
+        return taskMapper.mapToTaskDto(service.getTaskById(taskId));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
