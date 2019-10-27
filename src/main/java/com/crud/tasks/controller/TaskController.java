@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -34,9 +33,9 @@ public class TaskController {
     }*/
 
     // http://localhost:8080/v1/task/getTask?taskId=1
-    @RequestMapping(method = RequestMethod.GET, value = "getTaska")
-    public TaskDto getTaskById(@RequestParam(required = true) Long taskId) {
-        return taskMapper.mapToTaskDto(service.getTaskById(taskId));
+    @RequestMapping(method = RequestMethod.GET, value = "getTask")
+    public TaskDto getTask(@RequestParam(required = true) Long id) throws TaskNotFoundException {
+        return taskMapper.mapToTaskDto(service.getTask(id).orElseThrow(TaskNotFoundException::new));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
