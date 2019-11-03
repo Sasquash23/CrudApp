@@ -18,6 +18,4 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
     @Autowired
     Task save(Task task);
 
-    @Autowired
-    void delete(Task task);
 }
