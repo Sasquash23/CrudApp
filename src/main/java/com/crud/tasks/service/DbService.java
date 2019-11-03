@@ -26,4 +26,7 @@ public class DbService {
         return repository.save(task);
     }
 
+    public void deleteTask(final Task task) {
+        repository.delete(task);
+    }
 }
