@@ -2,13 +2,13 @@ plugins {
 	id 'org.springframework.boot' version '2.2.0.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
-	id 'war'
+	//id 'war'
 }
 
-bootWar {
+/*bootWar {
 	archiveFileName = 'crud.war'
 	//archiveName = [archiveBaseName]-[archiveAppendix]-[archiveVersion]-[archiveClassifier].[archiveExtension]
-}
+}*/
 
 group = 'com.crud'
 version = '0.0.1-SNAPSHOT'
@@ -29,11 +29,13 @@ dependencies {
 
 	// databases
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
-	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
-
+	//compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
+	//remote heroku host https://mvnrepository.com/artifact/org.postgresql/postgresql
+	compile('org.postgresql:postgresql')
+	
 	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.2.0.RELEASE'
 	
-	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+	//providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 }
 
 test {
