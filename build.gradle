@@ -2,6 +2,12 @@ plugins {
 	id 'org.springframework.boot' version '2.2.0.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
+	id 'war'
+}
+
+bootWar {
+	archiveFileName = 'crud.war'
+	//archiveName = [archiveBaseName]-[archiveAppendix]-[archiveVersion]-[archiveClassifier].[archiveExtension]
 }
 
 group = 'com.crud'
@@ -19,15 +25,18 @@ dependencies {
 	
 	//lombok
 	compile group: 'org.projectlombok', name: 'lombok', version: '1.18.10'
+	annotationProcessor 'org.projectlombok:lombok:1.18.10'
+
 	// databases
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
 
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.2.0.RELEASE'
+	
+	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 }
 
 test {
 	useJUnitPlatform()
 }
+
