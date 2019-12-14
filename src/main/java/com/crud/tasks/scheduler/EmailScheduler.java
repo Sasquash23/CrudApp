@@ -30,6 +30,6 @@ public class EmailScheduler {
         simpleEmailService.send(new Mail(
                 adminConfig.getAdminMail(),
                 SUBJECT,
-                "Currently in your database you have: " + size + " task."));
+                "Currently in your database you have: " + size + (size == 1 ? " task." : " tasks." + taskRepository.findAll())));
     }
 }
