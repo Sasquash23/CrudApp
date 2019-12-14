@@ -1,5 +1,6 @@
 package com.crud.tasks.service;
 
+import com.crud.tasks.domain.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -17,12 +18,12 @@ public class SimpleEmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void send(final String reciverEmail, final String subject, final String message) {
+    public void send(final Mail mail) {
 
         LOGGER.info("Starting email preparation...");
 
         try {
-            SimpleMailMessage mailMessage = createMailMessage(reciverEmail, subject, message);
+            SimpleMailMessage mailMessage = createMailMessage(mail);
             javaMailSender.send(mailMessage);
 
             LOGGER.info("Email has been sent.");
@@ -32,12 +33,11 @@ public class SimpleEmailService {
         }
     }
 
-    private SimpleMailMessage createMailMessage(final String reciverEmail, final String subject,
-                                                final String message) {
+    private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(reciverEmail);
-        mailMessage.setSubject(subject);
-        mailMessage.setText(message);
+        mailMessage.setTo(mail.getMailTo());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mail.getMessage());
         return mailMessage;
     }
 }
