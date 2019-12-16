@@ -25,6 +25,8 @@ import static org.mockito.ArgumentMatchers.anyLong;
 
 
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -55,6 +57,9 @@ public class TaskControllerTest {
         mockMvc.perform(get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(0)));
+
+
+        verify(taskMapper, times(1)).mapToTaskDtoList(anyList());
     }
 
     @Test
@@ -76,6 +81,8 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$[1].id", is(2)))
                 .andExpect(jsonPath("$[1].title", is("Morty")))
                 .andExpect(jsonPath("$[1].content", is("Get schwiftyyyyyyyyyyyyyyyyyyyyy")));
+
+        verify(dbService, times(2)).getAllTasks();
     }
 
     @Test
@@ -93,6 +100,8 @@ public class TaskControllerTest {
                 .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.title", is("Ricky")))
                 .andExpect(jsonPath("$.content", is("Get schwifty")));
+
+        verify(dbService, times(1)).getTask(anyLong());
     }
 
     @Test
@@ -114,6 +123,8 @@ public class TaskControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title", is("Ricky 23")))
                 .andExpect(jsonPath("$.content", is("I'm a bit of a stickler Meeseeks")));
+
+        verify(dbService, times(2)).saveTask(taskMapper.mapToTask(taskDto));
     }
 
     @Test
@@ -134,6 +145,8 @@ public class TaskControllerTest {
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().isOk());
+
+        verify(dbService, times(1)).saveTask(taskMapper.mapToTask(taskDto));
     }
 
     @Test
